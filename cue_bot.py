@@ -46,12 +46,13 @@ class Cue_Bot:
     # ======================================================================== #
 
     def GetOnlyApproved( self, data, in_json = "ID" ):
-        sql = "SELECT tournament_id FROM tournaments WHERE approved=1;"
-        self.cur.execute( sql )
-        approved_ids = [ x[ 0 ] for x in self.cur.fetchall() ]
-
-        data = [ x for x in data if x[ in_json ] in approved_ids ]
         return data
+        # sql = "SELECT tournament_id FROM tournaments WHERE approved=1;"
+        # self.cur.execute( sql )
+        # approved_ids = [ x[ 0 ] for x in self.cur.fetchall() ]
+        #
+        # data = [ x for x in data if x[ in_json ] in approved_ids ]
+        # return data
 
     # ======================================================================== #
 
