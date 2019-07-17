@@ -191,6 +191,9 @@ class Cue_Bot:
         sql = "SELECT DISTINCT tournament_id FROM matches WHERE finished=0;"
         self.cur.execute( sql )
         events = [ x[ 0 ] for x in self.cur.fetchall() ]
+        if not events:
+            printLog( "No matches without results..." )
+            return
 
         # Get all matches
         printLog( "Requesting all matches for unfinished tournaments..." )

@@ -1,16 +1,15 @@
-import praw
-from datetime import datetime
-from time import sleep
-from config import *
+from SnookerAPI import SnookerAPI
+from cue_bot import Cue_Bot
+import schedule
+import time
 
-def printLog( message ):
-    print( datetime.now(), end = " " )
-    print( message )
+bot = Cue_Bot()
 
-def main():
-    printLog( "Logging in..." )
-    reddit = praw.Reddit( client_id = bot_id, client_secret = bot_secret, password = bot_pwd, user_agent = bot_agent, username = bot_usr )
-    printLog( "Logged in..." )
+schedule.every().day.at( "1:00" ).do( bot.PostTodayMatches )
+schedule.every( 2 ).hours.do( bot.UpdateTodayMatches )
+schedule.every( 30 ).minutes.do( bot.CheckResults )
+schedule.every( 15 ).seconds.do( bot.CheckComments )
 
-if __name__ == "__main__":
-    main()
+while True:
+    schedule.run_pending()
+    sleep( 1 )
